@@ -1,10 +1,8 @@
-import axios from 'axios'
 import Head from 'next/head'
-import React from 'react'
+import AvgVolumeChart from '../components/AvgVolumeChart'
 import SumVolumeChart from '../components/SumVolumeChart'
 import styles from '../styles/Home.module.css'
 function Home() {
-  
   return (
     <div className={styles.container}>
       <Head>
@@ -15,6 +13,7 @@ function Home() {
 
       <main className={styles.main}>
         <h1 className={styles.title}>Stock market analysis</h1>
+        <AvgVolumeChart />
         <SumVolumeChart />
       </main>
     </div>

@@ -23,7 +23,7 @@ function SumVolumeChart(context: any) {
   React.useEffect(() => {
     const loadSumVol = async () => {
       const sumVolDataResponse: any = await axios.get(`/api/update-data`)
-      setSumVolData(sumVolDataResponse.data)
+      setSumVolData(sumVolDataResponse.data.sumVolume)
     }
     if (sumVolData.length === 0) {
       try {
@@ -56,7 +56,7 @@ function SumVolumeChart(context: any) {
   }, [sumVolData])
   return (
     <div className={styles.container}>
-      <h3 className={styles.title}>Stocks traded volume since 2000</h3>
+      <h3 className={styles.title}>Stocks total traded volume since 2000</h3>
       {sumVolData && (
         <Chart options={optSumVol} series={volTraded} type='bar' />
       )}

@@ -1,8 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { getSumVolume } from '../../helpers/elastic-requests'
+import { getAvgVolume, getSumVolume } from '../../helpers/elastic-requests'
 
 type Data = {
-  data?: any
+  sumVolume?: Object
+  avgVolume?: Object
   message?: string
 }
 
@@ -11,8 +12,12 @@ export default async function handler(
   res: NextApiResponse<Data>
 ) {
   try {
-    const result = await getSumVolume()
-    res.status(200).json(result)
+    const sumVolume = await getSumVolume()
+    const avgVolume = await getAvgVolume()
+    res.status(200).json({
+      sumVolume: sumVolume,
+      avgVolume: avgVolume,
+    })
   } catch (e) {
     res.status(500).json({ message: "Something went wrong on our end, please try again later." })
   }
