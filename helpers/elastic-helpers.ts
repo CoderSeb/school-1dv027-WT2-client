@@ -22,7 +22,7 @@ export const loadClient = () => {
     }
   }
 
-  const options: Object = process.env.NODE_ENV === 'production' ? prodOps : devOps
+  const options: Object = process.env.PROD_MODE ? prodOps : devOps
 
   const client: Client = new Client(options)
   return client
