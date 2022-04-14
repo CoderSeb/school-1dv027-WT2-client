@@ -55,7 +55,7 @@ function Home() {
 
         {noData && (
           <>
-            <h1>Problem reaching elastic.. No data found</h1>
+            <h1>Problem reaching elastic... No data found</h1>
           </>
         )}
         <p>&copy; Sebastian Åkerblom 2022</p>
