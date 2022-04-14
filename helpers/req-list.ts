@@ -1,88 +1,95 @@
+const date = new Date()
+
 export default {
-  sumVolume: {
-    "aggs": {
-      "0": {
-        "terms": {
-          "field": "symbol.keyword",
-          "order": {
-            "_key": "asc"
-          },
-          "size": 20
+  "aggs": {
+    "avg_volume": {
+      "terms": {
+        "field": "symbol.keyword",
+        "order": {
+          "1": "desc"
         },
-        "aggs": {
-          "1": {
-            "terms": {
-              "field": "symbol.keyword",
-              "order": {
-                "_key": "asc"
-              },
-              "size": 10
+        "size": 20
+      },
+      "aggs": {
+        "1": {
+          "avg": {
+            "field": "volume"
+          }
+        }
+      }
+    },
+    "sum_volume": {
+      "terms": {
+        "field": "symbol.keyword",
+        "order": {
+          "_key": "asc"
+        },
+        "size": 20
+      },
+      "aggs": {
+        "1": {
+          "terms": {
+            "field": "symbol.keyword",
+            "order": {
+              "_key": "asc"
             },
-            "aggs": {
-              "2": {
-                "sum": {
-                  "field": "volume"
-                }
+            "size": 10
+          },
+          "aggs": {
+            "2": {
+              "sum": {
+                "field": "volume"
               }
             }
           }
         }
       }
     },
-    "size": 0,
-    "fields": [
-      {
+    "avg_closing_price": {
+      "date_histogram": {
         "field": "date",
-        "format": "date_time"
-      }
-    ],
-    "script_fields": {},
-    "stored_fields": [
-      "*"
-    ],
-    "runtime_mappings": {},
-    "_source": {
-      "excludes": []
-    },
-    "query": {
-      "bool": {
-        "must": [],
-        "filter": [
-          {
-            "range": {
-              "date": {
-                "format": "strict_date_optional_time",
-                "gte": "1999-12-31T23:00:00.000Z",
-                "lte": "2022-04-13T12:48:57.595Z"
+        "calendar_interval": "1M",
+        "time_zone": "Europe/Stockholm"
+      },
+      "aggs": {
+        "1": {
+          "terms": {
+            "field": "symbol.keyword",
+            "order": {
+              "2": "desc"
+            },
+            "size": 20
+          },
+          "aggs": {
+            "2": {
+              "avg": {
+                "field": "close"
               }
             }
           }
-        ],
-        "should": [],
-        "must_not": []
+        }
       }
     }
   },
-  avgVolume: {
-    "aggs": {
-      "0": {
-        "terms": {
-          "field": "symbol.keyword",
-          "order": {
-            "1": "desc"
-          },
-          "size": 20
-        },
-        "aggs": {
-          "1": {
-            "avg": {
-              "field": "volume"
-            }
+  "query": {
+  "bool": {
+    "must": [],
+    "filter": [
+      {
+        "range": {
+          "date": {
+            "format": "strict_date_optional_time",
+            "gte": "2000-01-01T00:00:00.000Z",
+            "lte": date.toJSON()
           }
         }
       }
-    },
-    "size": 0,
+    ],
+    "should": [],
+    "must_not": []
+  }
+},
+"size": 0,
     "fields": [
       {
         "field": "date",
@@ -96,24 +103,5 @@ export default {
     "runtime_mappings": {},
     "_source": {
       "excludes": []
-    },
-    "query": {
-      "bool": {
-        "must": [],
-        "filter": [
-          {
-            "range": {
-              "date": {
-                "format": "strict_date_optional_time",
-                "gte": "1999-12-31T23:00:00.000Z",
-                "lte": "2022-04-13T14:48:24.039Z"
-              }
-            }
-          }
-        ],
-        "should": [],
-        "must_not": []
-      }
     }
-  }
 }
