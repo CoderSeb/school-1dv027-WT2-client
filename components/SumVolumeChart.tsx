@@ -1,4 +1,3 @@
-import axios from 'axios'
 import dynamic from 'next/dynamic'
 import React from 'react'
 import styles from './styles/SumVolumeChart.module.css'
@@ -21,16 +20,8 @@ function SumVolumeChart(context: any) {
   })
 
   React.useEffect(() => {
-    const loadSumVol = async () => {
-      const sumVolDataResponse: any = await axios.get(`/api/update-data`)
-      setSumVolData(sumVolDataResponse.data.sumVolume)
-    }
-    if (sumVolData.length === 0) {
-      try {
-        loadSumVol()
-      } catch (e) {
-        console.log(e)
-      }
+    if (context.chartData) {
+      setSumVolData(context.chartData.buckets)
     }
   }, [])
 
