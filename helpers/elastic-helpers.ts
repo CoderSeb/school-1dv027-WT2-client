@@ -1,18 +1,17 @@
 import { Client } from "@elastic/elasticsearch"
-import fs from 'fs-extra'
 
 export const loadClient = () => {
-  const devOps: Object = {
-    node: process.env.ELASTIC_DEVELOPMENT_URL!,
-    auth: {
-      username: process.env.ELASTIC_USERNAME!,
-      password: process.env.ELASTIC_PASSWORD!
-    },
-    tls: {
-      ca: fs.readFileSync(process.env.CERT_PATH!),
-      rejectUnauthorized: false
-    }
-  }
+  // const devOps: Object = {
+  //   node: process.env.ELASTIC_DEVELOPMENT_URL!,
+  //   auth: {
+  //     username: process.env.ELASTIC_USERNAME!,
+  //     password: process.env.ELASTIC_PASSWORD!
+  //   },
+  //   tls: {
+  //     ca: fs.readFileSync(process.env.CERT_PATH!),
+  //     rejectUnauthorized: false
+  //   }
+  // }
 
   const prodOps: Object  = {
     node: process.env.ELASTIC_PRODUCTION_URL!,
@@ -22,7 +21,7 @@ export const loadClient = () => {
     }
   }
 
-  const options: Object = process.env.PROD_MODE ? prodOps : devOps
+  const options: Object = prodOps
 
   const client: Client = new Client(options)
   return client
