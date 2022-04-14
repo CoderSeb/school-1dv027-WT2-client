@@ -1,0 +1,14 @@
+.container {
+  width: 1200px;
+  padding: 1em;
+  text-align: center;
+  background: rgb(189, 193, 237);
+  color: #2c3458;
+  border-radius: 10px;
+  margin: 1em auto;
+}
+
+.title {
+  font-size: 1.5em;
+  font-weight: bold;
+}
