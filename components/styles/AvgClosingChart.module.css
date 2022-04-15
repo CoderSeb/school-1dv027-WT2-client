@@ -12,3 +12,16 @@
   font-size: 1.5em;
   font-weight: bold;
 }
+
+@media only screen and (max-width: 1250px) {
+  .container {
+    width: 100%;
+  }
+}
+
+@media only screen and (min-width: 1650px) {
+  .container {
+    display: inline-block;
+    margin: 1em;
+  }
+}

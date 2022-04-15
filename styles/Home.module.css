@@ -1,16 +1,41 @@
 .container {
-  background: rgb(39, 40, 51);
-  color: rgb(161, 158, 222);
+  height: 100vh;
 }
 
 .main {
-  min-height: 100vh;
-  padding: 0rem 0;
-  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.header {
+  background: rgb(39, 40, 51);
+  color: rgb(161, 158, 222);
+  width: 100%;
+  text-align: center;
+  overflow: hidden;
+}
+
+.footer {
+  background: rgb(39, 40, 51);
+  color: rgb(161, 158, 222);
+  width: 100%;
+  text-align: center;
+  height: 70px;
+  margin-top: 2rem;
+}
+
+@media only screen and (max-width: 1250px) {
+  .container {
+    padding: 1em;
+  }
+}
+
+@media only screen and (min-width: 1650px) {
+  .main {
+    flex-direction: row;
+  }
 }
 
 

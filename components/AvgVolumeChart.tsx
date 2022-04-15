@@ -6,7 +6,7 @@ const Chart = dynamic(() => import('react-apexcharts'), { ssr: false })
 function AvgVolumeChart(context: any) {
   const [avgVolData, setAvgVolData] = React.useState<object[]>([])
   const [volTraded, setVolTraded] = React.useState<number[]>([])
-  const [optAvgVol, setOptAvgVol] = React.useState({})
+  const [optAvgVol, setOptAvgVol] = React.useState<ApexCharts.ApexOptions>({})
   React.useEffect(() => {
     if (context.chartData) {
       setAvgVolData(context.chartData.buckets)
