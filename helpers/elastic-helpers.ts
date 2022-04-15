@@ -1,5 +1,11 @@
 import { Client } from "@elastic/elasticsearch"
 import fs from 'fs-extra'
+
+/**
+ * Creates an elasticsearch client.
+ *
+ * @returns {Client} as the client created.
+ */
 export const loadClient = () => {
   let options: Object
   if (process.env.PROD_MODE === 'true') {

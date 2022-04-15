@@ -6,6 +6,14 @@ type Data = {
   data?: Object
 }
 
+
+/**
+ * Api hander, calling getData function to retrieve data from elasticsearch.
+ *
+ * @export
+ * @param {NextApiRequest} req
+ * @param {NextApiResponse<Data>} res
+ */
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>

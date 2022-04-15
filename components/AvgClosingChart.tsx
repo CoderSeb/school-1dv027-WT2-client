@@ -2,6 +2,12 @@ import dynamic from 'next/dynamic'
 import React from 'react'
 import styles from './styles/AvgClosingChart.module.css'
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false })
+
+/**
+ * 
+ * @param context 
+ * @returns 
+ */
 function AvgClosingChart(context: any) {
   const [avgClosingData, setAvgClosingData] = React.useState([])
   const [series, setSeries] = React.useState<any>([])

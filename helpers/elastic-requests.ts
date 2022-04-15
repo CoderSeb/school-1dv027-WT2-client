@@ -2,12 +2,17 @@ import { Client } from "@elastic/elasticsearch"
 import { loadClient } from "./elastic-helpers"
 import queryBody from './req-list'
 
-export const getData = async () => {
+/**
+ * Performs a search query on elasticsearch.
+ *
+ * @returns {any} as the aggregations response from Elasticsearch.
+ */
+export const getData = async (): Promise<any> => {
   const client: Client = loadClient()
   try {
     type SearchOptions = {
       index: string
-      body: any
+      body: Object
     }
 
     const searchOptions: SearchOptions = {
