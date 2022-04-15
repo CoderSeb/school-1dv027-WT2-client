@@ -18,6 +18,13 @@ function AvgClosingChart(context: any) {
         format: 'MMM yyyy'
       }
     },
+    yaxis: {
+      labels: {
+        formatter: function (value: any) {
+          return value + '$'
+        }
+      }
+    },
     xaxis: {
       type: 'datetime',
       categories: []
