@@ -5,17 +5,24 @@ import AvgVolumeChart from '../components/AvgVolumeChart'
 import SumVolumeChart from '../components/SumVolumeChart'
 import styles from '../styles/Home.module.css'
 
+// Type declaration for data response from the api.
 type AggResponse = {
-  data: object
+  data: ChartData
 }
 
+// Type declaration for ChartData in AggResponse object.
 type ChartData = {
   avg_volume: object
   sum_volume: object
   avg_closing_price: object
 }
 
-function Home() {
+/**
+ * Home page function.
+ *
+ * @returns {JSX.Element}
+ */
+function Home(): JSX.Element {
   const [loaded, setLoaded] = React.useState(false)
   const [data, setData] = React.useState<ChartData | undefined>(undefined)
   const [noData, setNoData] = React.useState(false)

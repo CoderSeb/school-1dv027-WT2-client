@@ -2,7 +2,7 @@ import { Client } from "@elastic/elasticsearch"
 import fs from 'fs-extra'
 export const loadClient = () => {
   let options: Object
-  if (process.env.PROD_MODE) {
+  if (process.env.PROD_MODE === 'true') {
     options = {
       node: process.env.ELASTIC_PRODUCTION_URL!,
       auth: {
