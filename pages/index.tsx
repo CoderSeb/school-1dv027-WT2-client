@@ -37,7 +37,7 @@ function Home() {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Create Next App</title>
+        <title>Sebs Stock Data</title>
         <meta name='description' content='Stock data, just for LNU teachers.' />
       </Head>
       <header className={styles.header}>
