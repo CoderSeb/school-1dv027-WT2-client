@@ -14,16 +14,14 @@ export default async function handler(
     res.status(405).json({ message: 'Method not allowed' })
     return
   }
-  console.log(req)
 
   if (req.headers.host !== process.env.HOST) {
     res.status(404).json({ message: 'Not found' })
     return
   }
   try {
-    console.log('endpoint')
     const data = await getData()
-    
+
     res.status(200).json({data})
   } catch (e: any) {
     res.status(500).json({ message: e.message } as Data)
