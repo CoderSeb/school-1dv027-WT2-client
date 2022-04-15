@@ -15,10 +15,6 @@ export default async function handler(
     return
   }
 
-  if (req.headers.host !== process.env.HOST) {
-    res.status(404).json({ message: 'Not found' })
-    return
-  }
   try {
     const data = await getData()
 
