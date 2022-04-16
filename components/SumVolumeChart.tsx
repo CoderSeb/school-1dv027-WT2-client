@@ -14,9 +14,6 @@ function SumVolumeChart(context: any) {
     chart: {
       id: 'Traded volume since 2000'
     },
-    theme: {
-      palette: 'palette1' // upto palette10
-    },
     yaxis: {
       labels: {
         formatter: function (value: any) {
@@ -41,7 +38,9 @@ function SumVolumeChart(context: any) {
       let tradedVolume: any = []
       let symbols: any = []
       sumVolData.forEach((item: any) => {
-        tradedVolume.push((item['1'].buckets[0]['2'].value / 1000).toFixed(0))
+        tradedVolume.push(
+          (item['1'].buckets[0]['2'].value / 1000000).toFixed(0) // Dividing the value with 1 milion to get the volume in millions.
+        )
         symbols.push(item.key)
       })
 
@@ -49,13 +48,18 @@ function SumVolumeChart(context: any) {
       setOptSumVol((prevOptions: any) => {
         return {
           ...prevOptions,
-          theme: {
-            palette: 'palette6'
+          dataLabels: {
+            enabled: false
+          },
+          plotOptions: {
+            bar: {
+              distributed: true
+            }
           },
           yaxis: {
             labels: {
               formatter: function (value: any) {
-                return value + 'k'
+                return value + ' Million'
               }
             }
           },
