@@ -1,5 +1,9 @@
 const date = new Date()
 
+
+/**
+ * Aggregation query for elasticsearch.
+*/
 export default {
   "aggs": {
     "avg_volume": {

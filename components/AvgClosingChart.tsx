@@ -4,9 +4,10 @@ import styles from './styles/AvgClosingChart.module.css'
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
 /**
- * 
- * @param context 
- * @returns 
+ * Chart component to show Average Closing Price / month since year 2000.
+ *
+ * @param context any props passed to the component.
+ * @returns {JSX.Element} as the component.
  */
 function AvgClosingChart(context: any) {
   const [avgClosingData, setAvgClosingData] = React.useState([])

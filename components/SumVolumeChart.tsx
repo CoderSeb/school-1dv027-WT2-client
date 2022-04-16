@@ -2,6 +2,13 @@ import dynamic from 'next/dynamic'
 import React from 'react'
 import styles from './styles/SumVolumeChart.module.css'
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false })
+
+/**
+ * Chart component to show Total Volume Traded since year 2000.
+ *
+ * @param context any props passed to the component.
+ * @returns {JSX.Element} as the component.
+ */
 function SumVolumeChart(context: any) {
   const [sumVolData, setSumVolData] = React.useState([])
   const [volTraded, setVolTraded] = React.useState([
@@ -39,7 +46,7 @@ function SumVolumeChart(context: any) {
       let symbols: any = []
       sumVolData.forEach((item: any) => {
         tradedVolume.push(
-          (item['1'].buckets[0]['2'].value / 1000000).toFixed(0) // Dividing the value with 1 milion to get the volume in millions.
+          (item['1'].buckets[0]['2'].value / 1000000).toFixed(0) // Dividing the value with 1 million to get the volume in millions.
         )
         symbols.push(item.key)
       })

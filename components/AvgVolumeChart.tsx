@@ -3,6 +3,12 @@ import React from 'react'
 import styles from './styles/AvgVolumeChart.module.css'
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
+/**
+ * Chart component to show Average Volume Traded since year 2000.
+ *
+ * @param context any props passed to the component.
+ * @returns {JSX.Element} as the component.
+ */
 function AvgVolumeChart(context: any) {
   const [avgVolData, setAvgVolData] = React.useState<object[]>([])
   const [volTraded, setVolTraded] = React.useState<number[]>([])
