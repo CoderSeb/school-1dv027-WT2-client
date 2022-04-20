@@ -1,3 +1,4 @@
+import jwt from 'jsonwebtoken'
 import Head from 'next/head'
 import React from 'react'
 import AvgClosingChart from '../components/AvgClosingChart'
@@ -22,14 +23,18 @@ type ChartData = {
  *
  * @returns {JSX.Element}
  */
-function Home(): JSX.Element {
+function Home({ reqToken }: { reqToken: string }): JSX.Element {
   const [loaded, setLoaded] = React.useState(false)
   const [data, setData] = React.useState<ChartData | undefined>(undefined)
   const [noData, setNoData] = React.useState(false)
   React.useEffect(() => {
     if (!loaded) {
       const loadData = async () => {
-        const response: Response = await fetch('/api/get-all')
+        const response: Response = await fetch('/api/get-all', {
+          headers: {
+            Authorization: `Bearer ${reqToken}`
+          }
+        })
         if (response.status !== 200) {
           setNoData(true)
           return
@@ -72,6 +77,22 @@ function Home(): JSX.Element {
       </footer>
     </div>
   )
+}
+
+export async function getServerSideProps() {
+  const secret: string = process.env.JWT_SECRET!
+  const token = jwt.sign(
+    { message: 'To be used as token for internal api. Only for client.' },
+    secret,
+    {
+      expiresIn: '30s'
+    }
+  )
+  return {
+    props: {
+      reqToken: token
+    }
+  }
 }
 
 export default Home
