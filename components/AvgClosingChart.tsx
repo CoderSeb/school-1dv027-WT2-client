@@ -1,5 +1,6 @@
 import dynamic from 'next/dynamic'
 import React from 'react'
+import { BucketData } from '../pages'
 import styles from './styles/AvgClosingChart.module.css'
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
@@ -9,9 +10,9 @@ const Chart = dynamic(() => import('react-apexcharts'), { ssr: false })
  * @param context any props passed to the component.
  * @returns {JSX.Element} as the component.
  */
-function AvgClosingChart(context: any) {
-  const [avgClosingData, setAvgClosingData] = React.useState([])
-  const [series, setSeries] = React.useState<any>([])
+function AvgClosingChart({ chartData }: { chartData: BucketData }) {
+  const [avgClosingData, setAvgClosingData] = React.useState<Object[]>([])
+  const [series, setSeries] = React.useState<ApexAxisChartSeries>([])
 
   const [options, setOptions] = React.useState<ApexCharts.ApexOptions>({
     chart: {
@@ -27,7 +28,7 @@ function AvgClosingChart(context: any) {
     },
     yaxis: {
       labels: {
-        formatter: function (value: any) {
+        formatter: function (value: number) {
           return value + '$'
         }
       }
@@ -39,15 +40,15 @@ function AvgClosingChart(context: any) {
   })
 
   React.useEffect(() => {
-    if (context.chartData) {
-      setAvgClosingData(context.chartData.buckets)
+    if (chartData) {
+      setAvgClosingData(chartData.buckets)
     }
   }, [])
 
   React.useEffect(() => {
     if (avgClosingData.length > 0) {
       let closingPrices: any = {}
-      let datesArray: any = []
+      let datesArray: string[] = []
       avgClosingData.forEach((item: any) => {
         item['1'].buckets.forEach((obj: any) => {
           let price = [item.key, obj['2'].value.toFixed(2)]
@@ -67,7 +68,7 @@ function AvgClosingChart(context: any) {
         series.push(closingPrices[key])
       }
 
-      setOptions((prevOptions: any) => {
+      setOptions((prevOptions: ApexCharts.ApexOptions) => {
         return {
           ...prevOptions,
           xaxis: {

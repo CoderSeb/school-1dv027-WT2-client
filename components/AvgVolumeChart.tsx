@@ -1,5 +1,6 @@
 import dynamic from 'next/dynamic'
 import React from 'react'
+import { BucketData } from '../pages'
 import styles from './styles/AvgVolumeChart.module.css'
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
@@ -9,19 +10,19 @@ const Chart = dynamic(() => import('react-apexcharts'), { ssr: false })
  * @param context any props passed to the component.
  * @returns {JSX.Element} as the component.
  */
-function AvgVolumeChart(context: any) {
-  const [avgVolData, setAvgVolData] = React.useState<object[]>([])
-  const [volTraded, setVolTraded] = React.useState<number[]>([])
+function AvgVolumeChart({ chartData }: { chartData: BucketData }) {
+  const [avgVolData, setAvgVolData] = React.useState<Object[]>([])
+  const [volTraded, setVolTraded] = React.useState<ApexAxisChartSeries>([])
   const [optAvgVol, setOptAvgVol] = React.useState<ApexCharts.ApexOptions>({})
   React.useEffect(() => {
-    if (context.chartData) {
-      setAvgVolData(context.chartData.buckets)
+    if (chartData) {
+      setAvgVolData(chartData.buckets)
     }
   }, [])
 
   React.useEffect(() => {
     if (avgVolData.length > 0) {
-      let tradedVolume: number[] = []
+      let tradedVolume: ApexAxisChartSeries = []
       let symbols: string[] = []
       avgVolData.forEach((item: any) => {
         tradedVolume.push(item['1'].value)

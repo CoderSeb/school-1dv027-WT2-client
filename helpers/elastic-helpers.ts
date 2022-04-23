@@ -1,4 +1,4 @@
-import { Client } from "@elastic/elasticsearch"
+import { Client, ClientOptions } from "@elastic/elasticsearch"
 import fs from 'fs-extra'
 
 /**
@@ -7,7 +7,7 @@ import fs from 'fs-extra'
  * @returns {Client} as the client created.
  */
 export const loadClient = () => {
-  let options: Object
+  let options: ClientOptions
   if (process.env.PROD_MODE === 'true') {
     options = {
       node: process.env.ELASTIC_PRODUCTION_URL!,

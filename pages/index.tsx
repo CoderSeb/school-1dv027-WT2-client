@@ -11,16 +11,22 @@ type AggResponse = {
   data: ChartData
 }
 
+// Type declaration for BucketData in ChartData object.
+export type BucketData = {
+  buckets: Object[]
+}
+
 // Type declaration for ChartData in AggResponse object.
 type ChartData = {
-  avg_volume: object
-  sum_volume: object
-  avg_closing_price: object
+  avg_volume: BucketData
+  sum_volume: BucketData
+  avg_closing_price: BucketData
 }
 
 /**
  * Home page function.
  *
+ * @param context any props passed to the component.
  * @returns {JSX.Element}
  */
 function Home({ reqToken }: { reqToken: string }): JSX.Element {

@@ -1,5 +1,6 @@
 import dynamic from 'next/dynamic'
 import React from 'react'
+import { BucketData } from '../pages'
 import styles from './styles/SumVolumeChart.module.css'
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
@@ -9,9 +10,9 @@ const Chart = dynamic(() => import('react-apexcharts'), { ssr: false })
  * @param context any props passed to the component.
  * @returns {JSX.Element} as the component.
  */
-function SumVolumeChart(context: any) {
-  const [sumVolData, setSumVolData] = React.useState([])
-  const [volTraded, setVolTraded] = React.useState([
+function SumVolumeChart({ chartData }: { chartData: BucketData }) {
+  const [sumVolData, setSumVolData] = React.useState<Object[]>([])
+  const [volTraded, setVolTraded] = React.useState<ApexAxisChartSeries>([
     {
       name: '',
       data: []
@@ -23,7 +24,7 @@ function SumVolumeChart(context: any) {
     },
     yaxis: {
       labels: {
-        formatter: function (value: any) {
+        formatter: function (value: number) {
           return value + '$'
         }
       }
@@ -35,15 +36,15 @@ function SumVolumeChart(context: any) {
   })
 
   React.useEffect(() => {
-    if (context.chartData) {
-      setSumVolData(context.chartData.buckets)
+    if (chartData) {
+      setSumVolData(chartData.buckets)
     }
   }, [])
 
   React.useEffect(() => {
     if (sumVolData.length > 0) {
       let tradedVolume: any = []
-      let symbols: any = []
+      let symbols: string[] = []
       sumVolData.forEach((item: any) => {
         tradedVolume.push(
           (item['1'].buckets[0]['2'].value / 1000000).toFixed(0) // Dividing the value with 1 million to get the volume in millions.
@@ -52,7 +53,7 @@ function SumVolumeChart(context: any) {
       })
 
       setVolTraded([{ name: 'Traded volume', data: tradedVolume }])
-      setOptSumVol((prevOptions: any) => {
+      setOptSumVol((prevOptions: ApexCharts.ApexOptions) => {
         return {
           ...prevOptions,
           dataLabels: {
@@ -65,7 +66,7 @@ function SumVolumeChart(context: any) {
           },
           yaxis: {
             labels: {
-              formatter: function (value: any) {
+              formatter: function (value: number) {
                 return value + ' Million'
               }
             }

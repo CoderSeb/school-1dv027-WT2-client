@@ -6,7 +6,7 @@ import queryBody from './req-list'
 /**
  * Performs a search query on elasticsearch.
  *
- * @returns {any} as the aggregations response from Elasticsearch.
+ * @returns {AggregationsAggregate} as the aggregations response from Elasticsearch.
  */
 export const getData = async (): Promise<any> => {
 
@@ -34,7 +34,7 @@ export const getData = async (): Promise<any> => {
       return result.aggregations
     }
     
-  } catch (err: any) {
-    throw new Error(err.message)
+  } catch (err) {
+    throw new Error("Ops! Couldn't fetch data from Elasticsearch.")
   }
 }
