@@ -1,4 +1,5 @@
 import { Client } from "@elastic/elasticsearch"
+import { AggregationsAggregate } from "@elastic/elasticsearch/lib/api/types"
 import { loadClient } from "./elastic-helpers"
 import queryBody from './req-list'
 
@@ -8,6 +9,15 @@ import queryBody from './req-list'
  * @returns {any} as the aggregations response from Elasticsearch.
  */
 export const getData = async (): Promise<any> => {
+
+  interface Document { 
+    took: number
+    timed_out: boolean
+    _shards: object
+    hits: object
+    aggregations: AggregationsAggregate
+  }
+
   const client: Client = loadClient()
   try {
     type SearchOptions = {
@@ -19,7 +29,7 @@ export const getData = async (): Promise<any> => {
       index: 'stocksdata',
       body: queryBody
     }
-    const result: any = await client.search(searchOptions)
+    const result = await client.search<Document>(searchOptions)
     if (result) {
       return result.aggregations
     }
